@@ -111,7 +111,7 @@ static _sig_func_ptr _sig_func[NSIG];
 #endif
 
 _sig_func_ptr
-signal (int sig, _sig_func_ptr func)
+signal_pico (int sig, _sig_func_ptr func)
 {
   if (sig < 0 || sig >= NSIG)
     {
@@ -148,7 +148,7 @@ raise (int sig)
     if (func == SIG_IGN)
       return 0;
     else if (func == SIG_DFL)
-      _exit(128 + sig);
+      return(128 + sig);
 #ifdef _USE_ATOMIC_SIGNAL
     /* make sure it hasn't changed in the meantime */
     if (!atomic_compare_exchange_strong(&_sig_func[sig],
