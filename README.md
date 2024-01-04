@@ -1,3 +1,16 @@
+
+# Building picolibc
+
+- Clone picolibc 
+- Run the build_script_microkit.sh script, the default install location for the build is ${HOME}/picolibc_build this can be changed by modifying the path after the -Dprefix flag
+- The build options for picolibc can be found at https://github.com/sel4-cap/picolibc/blob/main/doc/build.md
+
+# Linking with microkit
+
+- Add the specs file to the compiler flags --specs=<Path to specs file>. This will set the system header file path. Specs file found at ./picolib-microkit/picolibc.specs.
+- Add the libc libraries to the linker flags, including libgcc. Libc libraries found at the default install location (libc.a, libm.a). Libgcc library is found in the compiler's files (libgcc.a)
+- Libgcc needs to be listed before and after listing the libc libraries because they are dependent on each other. For example: -lgcc -L$<Path to lib c libraries> -lc -lm -lgcc.
+- 
 # Picolibc
 Copyright © 2018-2023 Keith Packard
 
