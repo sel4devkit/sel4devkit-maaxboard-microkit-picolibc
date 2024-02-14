@@ -2,6 +2,13 @@
 # Building picolibc
 
 - Clone picolibc.
+- Picolibc requires meson version 0.50 or newer. If your operating
+system provides an older version, you can get the latest using
+pip. For example, on a Debian or Ubuntu system, you would do:
+```
+$ sudo apt install pip
+$ pip install meson
+```
 - Run the build_script_microkit.sh script, the default install location for the build is ${HOME}/picolibc_build this can be changed by modifying the path after the -Dprefix flag.
 - The build options for picolibc can be found at https://github.com/sel4-cap/picolibc/blob/main/doc/build.md.
 
