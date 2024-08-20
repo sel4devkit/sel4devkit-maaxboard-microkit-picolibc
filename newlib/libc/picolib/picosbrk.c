@@ -34,15 +34,24 @@
  */
 
 #include <unistd.h>
+#include <stdbool.h>
 #include <errno.h>
+#include <stdio.h>
 
-extern char __heap_start[];
-extern char __heap_end[];
+// SEL4: getting this information from system file (XXX: gross?)
+char *__heap_start;
+char *__heap_end;
 
-static char *brk = __heap_start;
+char *brk;
+static bool ONCE = false;
 
 void *sbrk(ptrdiff_t incr)
 {
+        if (!ONCE) {
+                printf("heap start %p, end %p\n", __heap_start, __heap_end);
+                ONCE = true;
+                brk = __heap_start;
+        }
 	if (incr < 0) {
                 if ((size_t) (brk - __heap_start) < (size_t) (-incr)) {
                     errno = ENOMEM;

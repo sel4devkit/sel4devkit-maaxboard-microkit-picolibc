@@ -60,7 +60,7 @@ abort (void)
   while (1)
     {
       raise (SIGABRT);
-      _exit (1);
+      return (1);
     }
 }
 
